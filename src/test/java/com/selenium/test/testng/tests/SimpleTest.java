@@ -27,14 +27,12 @@ public class SimpleTest {
 
         CurrencyConverter converter = CurrencyConverter.openCurrencyPage();
         WebElement firstPopularItem = converter.getFirstPopularItemSelector();
-
         String selectedCurrency = converter.getSelectedItemSelector().getText();
         Assert.assertEquals(selectedCurrency,
                 "EUR",
                 "По дефолту не выбрана валюта " + selectedCurrency);
 
         firstPopularItem.click();
-
         String selectedCurrencyAfterClickUSD = converter.getSelectedPopularItemSelector().getText();
         Assert.assertEquals(selectedCurrencyAfterClickUSD,
                 "USD",
@@ -42,6 +40,9 @@ public class SimpleTest {
     }
 
     @Test
+    /*
+     * - Выбираем первую валюту из главного списка и проверяем, что она выделилась
+     */
     public void testChooseCurrencyFromMainList() {
         CurrencyConverter converter = CurrencyConverter.openCurrencyPage();
         WebElement firstItem = converter.getFirstItemSelector();
@@ -54,23 +55,29 @@ public class SimpleTest {
     }
 
     @Test
+    /*
+     * - Проверяем, что при выборе валюты подставляются в соответствующие вкладки
+     */
     public void testCurrencySubstitutionToTabs() {
         CurrencyConverter converter = CurrencyConverter.openCurrencyPage();
         String firstTabDefaultCurrency = converter.getFirstTabCurrencySelector().getText();
         Assert.assertEquals(firstTabDefaultCurrency,
                 "EUR",
                 "По дефолту не выбрана валюта " + firstTabDefaultCurrency);
+
         WebElement firstItem = converter.getFirstItemSelector();
         firstItem.click();
         String firstTabSelectedCurrency = converter.getFirstTabCurrencySelector().getText();
         Assert.assertEquals(firstTabSelectedCurrency,
                 "AED",
                 "После клика на " + firstTabSelectedCurrency + ", данная валюта не отобразилась около поля");
+
         WebElement secondTabSelector = converter.getSecondTabCurrencySelector();
         String secondTabDefaultCurrency = secondTabSelector.getText();
         Assert.assertEquals(secondTabDefaultCurrency,
                 "USD",
                 "По дефолту не выбрана валюта " + secondTabDefaultCurrency);
+
         secondTabSelector.click();
         firstItem.click();
         String secondTabSelectedCurrency = secondTabSelector.getText();
@@ -93,6 +100,7 @@ public class SimpleTest {
         Assert.assertEquals(firstValue,
                 "0",
                 "После нажатия на кнопку Клиринг, введенное значение осталось в первом поле" );
+
         Assert.assertEquals(secondValue,
                 "0",
                 "После нажатия на кнопку Клиринг, введенное значение осталось во втором поле" );

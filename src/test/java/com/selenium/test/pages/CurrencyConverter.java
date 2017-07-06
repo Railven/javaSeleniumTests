@@ -13,13 +13,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CurrencyConverter {
 
-    protected static WebDriver getDriver() {
+    private static WebDriver getDriver() {
         return WebBrowser.getDriver();
     }
 
     public static CurrencyConverter openCurrencyPage() {
         CurrencyConverter converter = new CurrencyConverter();
-        getDriver().get("https://www.******.com/tools/converter/ ");
+        getDriver().get("https://www.*******.com/tools/converter/ ");
         converter.waitForLoad();
         return converter;
     }
